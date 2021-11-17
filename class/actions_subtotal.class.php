@@ -119,6 +119,35 @@ class ActionsSubtotal
 
 		if(in_array('ordercard',$contexts) || in_array('ordersuppliercard',$contexts) || in_array('propalcard',$contexts) || in_array('supplier_proposalcard',$contexts) || in_array('invoicecard',$contexts) || in_array('invoicesuppliercard',$contexts) || in_array('invoicereccard',$contexts) || in_array('expeditioncard',$contexts)) {
 
+
+			/* Lorsque la conf MAIN_VIEW_LINE_NUMBER est activée, j'ai ajouté un dev permettant de choisir à quelle ligne ou souhaite ajouter un produit,
+			mais ce dev est concurrent avec le système d'ajout d'un produit directement dans un bloc titre sous-total, d'où le code js suivant
+			permettant de vider le choix d'une des 2 listes si une sélection est faite sur l'autre : */
+			?>
+
+			<script type="text/javascript">
+
+
+					$(document).on('change', '#rank', function() {
+						if(typeof $('[name="under_title"]').val() !== 'undefined') {
+							if($(this).val() > 0) {
+								$('[name="under_title"]').val(-1).trigger('change');
+							}
+						}
+					});
+
+					$(document).on('change', '[name="under_title"]', function() {
+						if($(this).val() > 0) {
+							if(typeof $("#rank").val() !== 'undefined') {
+								$("#rank").val(-1).trigger('change');
+							}
+						}
+					});
+
+			</script>
+
+			<?php
+
 			$createRight = $user->rights->{$object->element}->creer;
 			if($object->element == 'facturerec' )
 			{
