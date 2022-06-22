@@ -1968,10 +1968,24 @@ class ActionsSubtotal
 					$this->pdf_add_total($pdf,$object, $line, $label, $description,$posx, $posy, $w, $h);
 					$pageAfter = $pdf->getPage();
 
+                    /*
+                     * START FIX : DA022032
+                     */
+					if(297 < $pdf->GetY() + 80) $pageAfter++;
+					/*
+					 * END FIX : DA022032
+					 */
 					if($pageAfter>$pageBefore) {
 						//print "ST $pageAfter>$pageBefore<br>";
 						$pdf->rollbackTransaction(true);
 						$pdf->addPage('', '', true);
+						/*
+						 * START FIX : DA022032
+                         */
+                        $pdf->setPage($pageAfter);
+						/*
+                         * END FIX : DA022032
+                         */
 						$posy = $pdf->GetY();
 						$this->pdf_add_total($pdf, $object, $line, $label, $description, $posx, $posy, $w, $h);
 						$posy = $pdf->GetY();
