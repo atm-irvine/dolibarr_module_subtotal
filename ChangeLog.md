@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## Version 3.16
-
+- FIX : Compatibilité PHP 8 - *10/05/2023* - 3.16.1
 - NEW : Ajout configuration SUBTOTAL_TITLE_SIZE permettant d'éditer la taille des titres - *07/02/2023* - 3.16.0
 
 ## Version 3.15

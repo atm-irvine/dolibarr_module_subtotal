@@ -2940,12 +2940,12 @@ class ActionsSubtotal
 						if ($object->statut == 0  && $createRight && !empty($conf->global->SUBTOTAL_ALLOW_REMOVE_BLOCK))
 						{
 
-							if ($line->fk_prev_id === null)
+							if (!isset($line->fk_prev_id))
 							{
 								echo '<a class="subtotal-line-action-btn"  href="'.$_SERVER['PHP_SELF'].'?'.$idvar.'='.$object->id.'&action=ask_deleteline&lineid='.$line->id.'&token='.$newToken.'">'.img_delete().'</a>';
 							}
 
-							if(TSubtotal::isTitle($line) && ($line->fk_prev_id === null) )
+							if(TSubtotal::isTitle($line) && !isset($line->fk_prev_id))
 							{
 								if ((float) DOL_VERSION >= 8.0) {
 									$img_delete = img_delete($langs->trans('deleteWithAllLines'), ' style="color:#be3535 !important;" class="pictodelete pictodeleteallline"');
